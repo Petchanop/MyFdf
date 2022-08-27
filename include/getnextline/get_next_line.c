@@ -18,7 +18,7 @@ size_t	ft_strlen(const char *str);
 
 char	*ft_strjoin(char *s1, char *s2);
 
-void	ft_startnline(t_file *ptr);
+char	*ft_startnline(t_file *ptr);
 
 char	*ft_freefile(t_file *ptr)
 {
@@ -101,7 +101,7 @@ char	*get_next_line(int fd)
 	if (!buff->line)
 		return (NULL);
 	ft_memcpy(buff->line, buff->stream + buff->start, buff->newline + 1);
-	ft_startnline(buff);
+	buff->stream = ft_startnline(buff);
 	return (buff->line);
 }
 /*

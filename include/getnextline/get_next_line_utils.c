@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:44:18 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/03/25 03:30:13 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/08/27 15:35:34 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ size_t	ft_strlen(char const *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
@@ -65,8 +67,25 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-void	ft_startnline(t_file *ptr)
+char	*ft_startnline(t_file *ptr)
 {
-	ptr->start += ptr->newline;
+	char	*remaining_str;
+	int		i;
+	int		j;
+
+	i = ptr->newline;
+	j = 0;
+	remaining_str = malloc(((ft_strlen(ptr->stream) - ptr->newline) + 1));
+	if (remaining_str == NULL)
+		return (NULL);
+	while (ptr->stream[i])
+	{
+			remaining_str[j] = ptr->stream[i];
+			i++;
+			j++;
+	}
+	remaining_str[j] = '\0';
+	free(ptr->stream);
 	ptr->newline = 0;
+	return (remaining_str);
 }

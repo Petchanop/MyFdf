@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:38:27 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/08/27 22:24:18 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/08/28 23:58:44 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_mapdata {
 
 void	build_image(t_data *img, int width, int length);
 void	write_line(t_data img, t_mapdata **data);
+void	write_horizontal_line(t_point start, t_point end, t_mapdata data, t_data img);
+void	write_vertical_line(t_point start, t_point end, t_mapdata data, t_data img);
 void	ft_clear_allocate_data(char	**line_split);
 void	ft_free_split(char **split);
 void	get_data(char *argv, t_data *img);

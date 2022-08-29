@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 23:06:55 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/08/28 23:30:22 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/08/29 23:45:57 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int	main(int argc, char **argv)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	write_line(img, line_bsplit);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0,  200);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }

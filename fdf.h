@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:38:27 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/08/28 23:58:44 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/08/29 00:32:22 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4096 
+# endif
+
+# ifndef Pi
+#  define Pi 0.3141592
 # endif
 
 typedef struct s_data {

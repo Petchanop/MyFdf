@@ -6,177 +6,131 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 23:57:40 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:03 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:43:48 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point	point_transformation(t_point dest, t_point angle)
-{
-	t_point	new_point;
+t_point	find_proportion(t_data img);
 
-	new_point.x = (dest.x - dest.y) * (angle.x / 2);
-	new_point.y = (dest.x + dest.y) * (angle.y / 2);
-	return (new_point);
+t_point	find_center(t_data img, t_mapdata **data);
+
+t_point	find_dxdy(t_point start, t_point end);
+
+float	find_step(t_point diff);
+
+int		valid_point(t_point point);
+
+t_point	point_transformation(t_mapdata dst, t_point center, t_data img);
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
-void	write_line(t_data img, t_point start, t_point end, t_mapdata *data)
+void	write_line(t_vars vars)
 {
-	t_point	pre;
-	t_point	dy;
-	t_point	new_point;
-	t_point	pre_ver;
-	t_point	new_ver;
-	int	i;
-	int	color;
-
-	new_point = start;
-	new_ver.y = start.x;
-	new_ver.x = start.y;
-	dy.x = 64;
-	dy.y = 32;
-	i = 0; 
-	color = 255;
-	//printf("start   : %f , %f\n", start.x, start.y);
-	while (i < end.x && new_point.y < 1080 )//&& i < 1)
-	{
-		pre = new_point;
-		pre_ver = new_ver;
-		if (i < end.y && data && data[i].color != 0)
-			color = data[i].color;
-		else
-			color = 255; 
-		new_point.x++;
-		new_ver.y++;
-		// printf("pre   : %f , %f\n", pre.x, pre.y);
-		// printf("point : %f , %f\n", new_point.x, new_point.y);
-		write_horizontal_line(img, pre, new_point, data[i]);
-		write_vertical_line(img, new_ver, pre_ver, data[i]);
-		i++;
-	}
-}
-
-void	write_horizontal_line(t_data img, t_point point, t_point new_point, t_mapdata data)
-{
-	t_point	start;
-	t_point	end;
 	int	i;
 	int	j;
-	int color;
-	t_point	dy;
-
-	i = 0;
-	dy.x = 64;
-	dy.y = 32;
-	if (data.color == 0) 
-		color = 255;
-
-	while (i < end.y)
-	{
-		start.x = 0;
-		start.y = i;
-		j = 0;
-		while (j < end.x && new_point.y < 1080 )//&& i < 1)
-		{
-			pre = new_point;
-			if (i < end.y && data && data[i].color != 0)
-				color = data[i].color;
-			else
-				color = 255; 
-			new_point.x++;
-			start = point_transformation(point, dy);
-			end = point_transformation(new_point, dy);
-		//printf("x0,y0 : %f %f\n", start.x, start.y);
-			while (start.x < end.x && end.x < 1920 && end.y < 1080)
-			{
-				my_mlx_pixel_put(&img, 960 + start.x, start.y, color);
-				start.x++;
-				start.y += (dy.y / dy.x);
-			}
-			j++;
-		}
-		i++;
-	}
-	//printf("x1,y1 : %f %f\n", start.x, start.y);
-}
-
-void	write_vertical_line(t_data img, t_point point, t_point new_point, t_mapdata data)
-{
 	t_point	start;
-	t_point	end;
-	int	i;
-	int color;
-	t_point	dy;
+	t_point	end_x0;
+	t_point	end_y0;
 
-	i = 0;
-	dy.x = 64;
-	dy.y = 32;
-	if (data.color == 0) 
-		color = 255;
-	while (i < end.x)
+	i = 1;
+	while (i <= vars.img.height)
 	{
-		start_ver.x = i;
-		start_ver.y = 0;
-		while (j < end.x && new_point.y < 1080 )//&& i < 1)
+		j = 1;
+		while (j <= vars.img.width)
 		{
-			pre = new_point;
-			if (i < end.y && data && data[i].color != 0)
-				color = data[i].color;
+			start = point_transformation(vars.data[i - 1][j - 1], vars.center, vars.img);
+			if (j == vars.img.width)
+				end_x0 = point_transformation(vars.data[i - 1][j - 1], vars.center, vars.img);
 			else
-				color = 255; 
-			new_point.y++;
-			start = point_transformation(point, dy);
-			end = point_transformation(new_point, dy);
-			printf("x0,y0 : %f %f\n", start.x, start.y);
-			while (start.x < end.x && end.x < 1920 && end.y < 1080)
-			{
-				my_mlx_pixel_put(&img, 960 + start.x, start.y, color);
-				start.x++;
-				start.y -= (dy.y / dy.x);
-			}
+				end_x0 = point_transformation(vars.data[i - 1][j], vars.center, vars.img);
+			if (i < vars.img.height)
+				end_y0 = point_transformation(vars.data[i][j - 1], vars.center, vars.img);
+			else
+				end_y0 = point_transformation(vars.data[i - 1][j - 1], vars.center, vars.img);
+			write_horizontal_line(start, end_x0, vars.data[i - 1][j], vars.img);
+			write_vertical_line(end_y0, start, vars.data[i - 1][j - 1], vars.img);
 			j++;
 		}
-	printf("x1,y1 : %f %f\n", start.x, start.y);
+	i++;
 	}
 }
 
-void	write_pixel(t_data img, t_mapdata **array)
+void	write_horizontal_line(t_point start, t_point end, t_mapdata data, t_data img)
 {
-	t_point	start;
-	t_point	start_ver;
-	t_point	end;
-	int i;
-	
-	i = 0;
-	start.x = 0;
-	start.y = 0;
-	start_ver.x = 0;
-	start_ver.y = 0;
-	end.x = *img.width;
-	end.y = *img.height;
-	printf("x : %f %f\n", end.x, img.endian);
-	printf("y : %f %f\n", end.y, img.line_length);
-	if (array)
-		printf("test\n");
-	while (i < end.y)
+	t_point	begin;
+	t_point	diff;
+	t_point	stop;
+	int		color;
+
+	if (start.x > end.x)
 	{
-		start.x = 0;
-		start.y = i;
-		// start_ver.x = i;
-		// start_ver.y = 0;
-		write_line(img, start, end, array[i]);
-		//write_line(img, start_ver, end, array[i]);
-		printf("line : %d\n", i + 1);
-		i++;
+		begin = end;
+		stop = start;
 	}
-	// i = 0;
-	// while (i < end.x)
-	// {
-	// 	start_ver.x = i;
-	// 	start_ver.y = 0;
-	// 	write_line(img, start_ver, end, array[i]);
-	// 	printf("line : %d\n", i + 1);
-	// 	i++;	
-	// }
+	else
+	{
+		begin = start;
+		stop = end;
+	}
+	diff = find_dxdy(start, end);
+	// printf("step  : %.2f, %.2f %.2f\n", find_step(diff), diff.x, diff.y);
+	// printf("start : %.2f %.2f\n", start.x, start.y);
+	// printf("end   : %.2f %.2f\n", end.x, end.y);
+	// printf("%.2f %.2f\n", begin.x, begin.y);
+	if (!data.color && data.value == 0)
+		color = 255;
+	else if (!data.color && data.value != 0)
+		color = 65280;
+	else
+		color = data.color;
+	while (begin.x < stop.x && end.x <= 1920 && end.y <= 1080)
+	{
+		my_mlx_pixel_put(&img, begin.x, begin.y, color);
+		begin.y += (diff.y / find_step(diff));
+		begin.x += (diff.x / find_step(diff));
+	}
+}
+
+void	write_vertical_line(t_point start, t_point end, t_mapdata data, t_data img)
+{
+	t_point	begin;
+	t_point	diff;
+	t_point	stop;
+	int		color;
+
+	if (start.x > end.x)
+	{
+		begin = end;
+		stop = start;
+	}
+	else
+	{
+		begin = start;
+		stop = end;
+	}
+	diff = find_dxdy(start, end);
+	// printf("step  : %.2f\n", find_step(diff));
+	// printf("start : %.2f %.2f\n", start.x, start.y);
+	// printf("end   : %.2f %.2f\n", end.x, end.y);
+	// printf("%.2f %.2f\n", begin.y, begin.x);
+	if (!data.color && data.value == 0)
+		color = 255;
+	else if (!data.color && data.value != 0)
+		color = 65280;
+	else
+		color = data.color;
+	while ((begin.x < stop.x) && end.x <= 1920 && end.y <= 1080)
+	{
+		my_mlx_pixel_put(&img, begin.x, begin.y, color);
+		begin.y += (diff.y / find_step(diff));
+		begin.x += (diff.x / find_step(diff));
+	}
 }

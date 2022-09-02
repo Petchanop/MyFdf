@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:50:12 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/08/27 21:19:28 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:30:41 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ void	get_data(char *argv, t_data *img)
 	close(fd);
 }
 
+void	assign_data(char *line, int tilex, int tiley, t_mapdata *data)
+{
+	char	*str;
+
+	str = ft_strchr(line, ',');
+	data->value = ft_atoi(line);
+	data->point.x = tilex;
+	data->point.y = tiley;
+	if (str)
+		data->color = ft_hextoi(str);
+	else
+		data->color = 0;
+}
+
 int	get_width(char *data)
 {
 	int		i;
@@ -45,7 +59,7 @@ int	get_width(char *data)
 	{
 		while (data[i] == ' ' && data[i])
 			i++;
-		if (data[i] != ' ')
+		if (data[i] != ' ' && data[i] != '\n')
 			width++;
 		while (data[i] != ' ' && data[i] && data[i] != '\n')
 			i++;
@@ -55,17 +69,15 @@ int	get_width(char *data)
 	return (width);
 }
 
-t_mapdata	**ft_create_data(t_data *img, char *data)
+t_mapdata	**ft_create_data(t_data *img, int fd)
 {
 	t_mapdata	**new_data;
 	char		**line_split_space;
 	char		*buff;
 	int			i;
 	int			j;
-	int			fd;
 
 	new_data = malloc((img->height + 1) * sizeof(t_mapdata *));
-	fd = open(data, O_RDONLY);
 	buff = "1";
 	i = 0;
 	while (i < img->height)
@@ -76,13 +88,7 @@ t_mapdata	**ft_create_data(t_data *img, char *data)
 		j = 0;
 		while (line_split_space[j])
 		{
-			new_data[i][j].value = ft_atoi(line_split_space[j]);
-			new_data[i][j].point.x = j; 
-			new_data[i][j].point.y = i; 
-			if (ft_strchr(line_split_space[j], ','))
-				new_data[i][j].color = ft_hextoi(ft_strchr(line_split_space[j], ','));
-			else
-				new_data[i][j].color = 0;
+			assign_data(line_split_space[j], j, i, &new_data[i][j]);
 			j++;
 		}
 		free(buff);

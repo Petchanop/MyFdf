@@ -6,7 +6,7 @@
 #    By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/08 17:31:19 by npiya-is          #+#    #+#              #
-#    Updated: 2022/08/27 14:56:56 by npiya-is         ###   ########.fr        #
+#    Updated: 2022/09/02 16:39:33 by npiya-is         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,16 @@ SRCS= fdf.c\
 		include/getnextline/get_next_line_utils.c\
 
 SRCS2= testfdf.c\
+		fdf_keymap.c\
 		fdf_utils.c\
+		fdf_write_line.c\
 		ft_format_input.c\
 		ft_create_data.c\
 		include/getnextline/get_next_line.c\
 		include/getnextline/get_next_line_utils.c\
 
 SRCS3= testfdf.c\
+		fdf_keymap.c\
 		fdf_write_line.c\
 		ft_format_input.c\
 		ft_create_data.c\

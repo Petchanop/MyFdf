@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:38:27 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 16:30:58 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:49:15 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ unsigned int	ft_hextoi(char *code);
 t_point	find_center(t_data img, t_mapdata **data);
 t_point	point_transformation(t_mapdata dst, t_point center, t_data img);
 t_mapdata	**ft_create_data(t_data *img, int fd);
-
 
 #endif

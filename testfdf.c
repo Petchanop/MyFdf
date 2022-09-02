@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 23:06:55 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 16:37:31 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 21:50:32 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	init_t_data(t_vars *vars)
 	vars->img.img = mlx_new_image(vars->mlx, 1920, 1080);
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel,
 			&vars->img.line_length, &vars->img.endian);
+	if (!vars->img.zoom)
+		vars->img.zoom = 1;
 }
 
 int	main(int argc, char **argv)
@@ -69,9 +71,11 @@ int	main(int argc, char **argv)
 	vars.data = ft_create_data(&vars.img, fd);
 	close(fd);
 	init_t_data(&vars);
-	vars.center = find_center(vars.img, vars.data);
+	vars.zoom = find_proportion(vars.img);
+	vars.center = find_center(vars, vars.data);
 	write_line(vars);
 	mlx_key_hook(vars.mlx_win, key_hook, &vars);
+	mlx_mouse_hook(vars.mlx_win, mouse_hook, &vars);
 	mlx_put_image_to_window(vars.mlx, vars.mlx_win, vars.img.img, 0, 0);
 	mlx_loop(vars.mlx);
 }

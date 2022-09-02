@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:50:12 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 16:30:41 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 20:04:22 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	assign_data(char *line, int tilex, int tiley, t_mapdata *data)
 		data->color = ft_hextoi(str);
 	else
 		data->color = 0;
+	free(line);
 }
 
 int	get_width(char *data)
@@ -92,21 +93,8 @@ t_mapdata	**ft_create_data(t_data *img, int fd)
 			j++;
 		}
 		free(buff);
+		free(line_split_space);
 		i++;
 	}
-	close(fd);
-	ft_clear_allocate_data(line_split_space);
 	return (new_data);
-}
-
-void	ft_clear_allocate_data(char **line_split)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (line_split[j])
-		free(line_split[j++]);
-	free(line_split);
 }

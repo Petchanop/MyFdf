@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:49:37 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 16:43:04 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 21:36:32 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ t_point	find_proportion(t_data img)
 		div = 4;
 	else
 		div = 2;
-	value.x = (1920 / img.width) / div;
-	value.y = (1080 / img.height) / div;
+	value.x = ((1920 / img.width) / div) * img.zoom;
+	value.y = ((1080 / img.height) / div) * img.zoom;
 	return (value);
 }
 
-t_point	find_center(t_data img, t_mapdata **data)
+t_point	find_center(t_vars vars, t_mapdata **data)
 {
 	int		i;
 	int		j;
 	t_point	center;
 
-	i = img.width / 2;
-	j = img.height / 2;
+	i = vars.img.width / 2;
+	j = vars.img.height / 2;
 	center.x = 0;
 	center.y = 0;
-	center = point_transformation(data[j][i], center, img);
+	center = point_transformation(data[j][i], center, vars.zoom);
 	center.x = 960 - center.x;
 	center.y = 440 - center.y;
 	return (center);
@@ -69,13 +69,11 @@ float	find_step(t_point diff)
 	}
 }
 
-t_point	point_transformation(t_mapdata dst, t_point center, t_data img)
+t_point	point_transformation(t_mapdata dst, t_point center, t_point zoom)
 {
 	t_point	point;
-	t_point	zoom;
 	float	value;
 
-	zoom = find_proportion(img);
 	if (dst.value)
 		value = dst.value;
 	else

@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:49:37 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 21:36:32 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:51:58 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,10 @@ t_point	find_dxdy(t_point start, t_point end)
 
 float	find_step(t_point diff)
 {
-	if (diff.x >= 0)
-	{
-		if (diff.x >= diff.y)
-			return (diff.x);
-		else
-			return (diff.y);
-	}
+	if (fabs(diff.x) >= fabs(diff.y))
+		return (fabs(diff.x));
 	else
-	{
-		if (diff.x <= diff.y)
-			return (diff.x);
-		else
-			return (diff.y);
-	}
+		return (fabs(diff.y));
 }
 
 t_point	point_transformation(t_mapdata dst, t_point center, t_point zoom)
@@ -89,7 +79,7 @@ t_point	point_transformation(t_mapdata dst, t_point center, t_point zoom)
 
 int	valid_point(t_point point)
 {
-	if (point.x <= 1920 && point.y <= 1080 && point.x >= 0 && point.y >= 0)
+	if (point.x < 1920 && point.y < 1080 && point.x > 0 && point.y > 0)
 		return (1);
 	return (0);
 }

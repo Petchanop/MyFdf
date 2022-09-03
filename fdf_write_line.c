@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 23:57:40 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 21:50:11 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/03 19:52:19 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,24 @@ t_point	find_dxdy(t_point start, t_point end);
 float	find_step(t_point diff);
 
 int		valid_point(t_point point);
+
+int	check_point(t_point begin, t_point end, t_point step)
+{
+	if (valid_point(end) && valid_point(begin))
+	{
+		if (step.x > 0)
+		{
+			if (begin.x < end.x)
+				return (1);
+		}
+		else
+		{
+			if (begin.x > end.x)
+				return (1);
+		}
+	}
+	return (0);
+}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -50,7 +68,7 @@ void	write_line(t_vars vars)
 			else
 				end_y0 = point_transformation(vars.data[i - 1][j - 1], vars.center, vars.zoom);
 			write_horizontal_line(start, end_x0, vars.data[i - 1][j], vars.img);
-			write_vertical_line(end_y0, start, vars.data[i - 1][j - 1], vars.img);
+			write_vertical_line(start, end_y0, vars.data[i - 1][j - 1], vars.img);
 			j++;
 		}
 	i++;
@@ -60,31 +78,23 @@ void	write_line(t_vars vars)
 void	write_horizontal_line(t_point start, t_point end, t_mapdata data, t_data img)
 {
 	t_point	begin;
-	t_point	diff;
 	t_point	stop;
+	t_point	diff;
 	t_point	step;
 	int		color;
 
-	if (start.x > end.x)
-	{
-		begin = end;
-		stop = start;
-	}
-	else
-	{
-		begin = start;
-		stop = end;
-	}
+	begin = start;
+	stop = end;
 	diff = find_dxdy(start, end);
 	step.y = diff.y / find_step(diff);
 	step.x = diff.x / find_step(diff);
-	if (!data.color && data.value == 0)
-		color = 255;
-	else if (!data.color && data.value != 0)
-		color = 65280;
+	if (!data.color)// && data.value == 0)
+		color = 16777215;
 	else
 		color = data.color;
-	while (begin.x < stop.x && valid_point(end) && valid_point(begin))
+	// 	color = 255;
+	// else if (!data.color && data.value != 0)
+	while (check_point(begin, stop, step))
 	{
 		my_mlx_pixel_put(&img, begin.x, begin.y, color);
 		begin.y += step.y;
@@ -96,30 +106,22 @@ void	write_vertical_line(t_point start, t_point end, t_mapdata data, t_data img)
 {
 	t_point	begin;
 	t_point	diff;
-	t_point	stop;
 	t_point	step;
+	t_point	stop;
 	int		color;
 
-	if (start.x > end.x)
-	{
-		begin = end;
-		stop = start;
-	}
-	else
-	{
-		begin = start;
-		stop = end;
-	}
 	diff = find_dxdy(start, end);
 	step.y = diff.y / find_step(diff);
 	step.x = diff.x / find_step(diff);
-	if (!data.color && data.value == 0)
-		color = 255;
-	else if (!data.color && data.value != 0)
-		color = 65280;
+	if (!data.color)// && data.value == 0)
+		color = 16777215;
 	else
 		color = data.color;
-	while ((begin.x < stop.x) && valid_point(end) && valid_point(begin))
+	begin = start;
+	stop = end;
+	// 	color = 255;
+	// else if (!data.color && data.value != 0)
+	while (check_point(begin, stop, step))
 	{
 		my_mlx_pixel_put(&img, begin.x, begin.y, color);
 		begin.y += step.y;

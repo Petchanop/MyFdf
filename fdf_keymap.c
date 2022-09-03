@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 16:16:26 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 21:46:19 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/02 23:32:53 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	mouse_hook(int keycode, int x, int y, t_vars *vars)
 
 	if (keycode == ON_SCROLLUP)
 	{
-		vars->img.zoom += 0.1;
+		vars->img.zoom += 0.05;
 		vars->zoom = find_proportion(vars->img);
 	}
 	else if (keycode == ON_SCROLLDOWN)
 	{
-		vars->img.zoom -= 0.1;
+		vars->img.zoom -= 0.05;
 		vars->zoom = find_proportion(vars->img);
 	}
 	mlx_destroy_image(vars->mlx, vars->img.img);

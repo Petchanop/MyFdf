@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 23:06:55 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 21:50:32 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/04 01:46:54 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_data(t_vars vars)
 				printf("%d", vars.data[i][j].value);
 				printf(",%d", vars.data[i][j].color);
 			}
-			//printf(" x,y %.2f,%.2f\n", line_bsplit[i][j].point.x, line_bsplit[i][j].point.y );
 			if (vars.data[i][j].value < 10)
 				printf("  ");
 			if (vars.data[i][j].value >= 10 && vars.data[i][j].value <= 999)

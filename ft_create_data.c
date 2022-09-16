@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:50:12 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 23:31:33 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:42:20 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void	get_data(char *argv, t_data *img)
 	close(fd);
 }
 
-void	assign_data(char *line, int tilex, int tiley, t_mapdata *data)
+void	assign_data(char *line, int tilex, int tilez, t_map *data)
 {
 	char	*str;
+	float	angle;
 
+	angle = Pi / 6;
 	str = ft_strchr(line, ',');
-	data->value = ft_atoi(line);
-	data->point.x = tilex;
-	data->point.y = tiley;
+	data->node.x = (tilex * cos(angle)) - (tilez * sin(angle));
+	data->node.z = (tilex * sin(angle)) + (tilez * cos(angle));
+	data->node.y = ft_atoi(line);
 	if (str)
 		data->color = ft_hextoi(str);
 	else
@@ -70,22 +72,22 @@ int	get_width(char *data)
 	return (width);
 }
 
-t_mapdata	**ft_create_data(t_data *img, int fd)
+t_map	**ft_create_data(t_data *img, int fd)
 {
-	t_mapdata	**new_data;
+	t_map		**new_data;
 	char		**line_split_space;
 	char		*buff;
 	int			i;
 	int			j;
 
-	new_data = malloc((img->height + 1) * sizeof(t_mapdata *));
+	new_data = malloc((img->depth + 1) * sizeof(t_data *));
 	buff = "1";
 	i = 0;
-	while (i < img->height)
+	while (i < img->depth)
 	{
 		buff = get_next_line(fd);
 		line_split_space = ft_split(buff, ' ');
-		new_data[i] = malloc((img->width + 1) * sizeof(t_mapdata));
+		new_data[i] = malloc((img->width + 1) * sizeof(t_data));
 		j = 0;
 		while (line_split_space[j])
 		{

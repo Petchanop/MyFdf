@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:49:00 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/09/02 21:49:40 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/09/15 01:33:27 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ void	build_image(t_data *img, int width, int length)
 	img->line_length = width;
 	img->endian = length;
 	img->width = width;
-	img->height = length;
+	img->depth = length;
+	img->zoom = 1.0;
 	printf("bits : %d\n", img->bits_per_pixel);
 	printf("width : %d\n", img->width);
-	printf("height : %d\n", img->height);
+	printf("depth : %d\n", img->depth);
 }
 
 void	ft_clear_allocate_data(t_vars vars)
@@ -84,6 +85,6 @@ void	ft_clear_allocate_data(t_vars vars)
 	int	i;
 
 	i = 0;
-	while (i < vars.img.height)
+	while (i < vars.img.depth)
 		free(vars.data[i++]);
 }

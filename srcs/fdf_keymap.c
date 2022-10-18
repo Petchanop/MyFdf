@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 16:16:26 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/15 23:39:50 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/16 17:35:19 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ int	mouse_hook(int keycode, int x, int y, t_vars *vars)
 	(void)x;
 	(void)y;
 	if (keycode == ON_SCROLLUP)
-		vars->img.zoom += 0.1;
+		vars->img.zoom += 0.05;
 	else if (keycode == ON_SCROLLDOWN)
-		vars->img.zoom -= 0.1;
+		vars->img.zoom -= 0.05;
 	else if (keycode == ON_RIGHTCLICK && vars->mode == 0)
-		vars->angle += 0.1;
+		vars->angle += 0.05;
 	else if (keycode == ON_LEFTCLICK && vars->mode == 0)
-		vars->angle -= 0.1;
+		vars->angle -= 0.05;
 	else if (keycode == ON_RIGHTCLICK && vars->mode == 1)
-		vars->angle1 += 0.1;
+		vars->angle1 += 0.05;
 	else if (keycode == ON_LEFTCLICK && vars->mode == 1)
-		vars->angle1 -= 0.1;
+		vars->angle1 -= 0.05;
 	else if (keycode == ON_RIGHTCLICK && vars->mode == 2)
-		vars->angle2 += 0.1;
+		vars->angle2 += 0.05;
 	else if (keycode == ON_LEFTCLICK && vars->mode == 2)
-		vars->angle2 -= 0.1;
+		vars->angle2 -= 0.05;
 	re_project3d(vars);
 	return (0);
 }

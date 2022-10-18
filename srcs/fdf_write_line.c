@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 23:57:40 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/15 23:28:12 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:52:08 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,24 @@ void	write_line(t_vars vars)
 	}
 }
 
+int	color_gradient(int color)
+{
+	static float	gradient;
+
+	gradient = 1;
+	if (color != 0x555555)
+	{
+		if (color < 256 && color > 150)
+			color -= gradient;
+		else if (color <= 65535)
+			color -= (255 - gradient);
+		else if (color <= 16777215)
+			color -= (255 - gradient) *(255 - gradient);
+		gradient++;
+	}
+	return (color);
+}
+
 void	project3d(t_point start, t_point end, t_map data, t_data img)
 {
 	t_point	begin;
@@ -64,9 +82,13 @@ void	project3d(t_point start, t_point end, t_map data, t_data img)
 		color = data.color;
 	begin = start;
 	stop = end;
+	printf("data : %.2f %.2f %.2f\n", data.node.x, data.node.y, data.node.z);
+	printf("begin : %.2f %.2f %.2f\n", begin.x, begin.y, begin.z);
+	printf("stop  : %.2f %.2f %.2f\n", stop.x, stop.y, stop.z);
 	while (check_point(begin, stop, step))
 	{
 		my_mlx_pixel_put(&img, begin.x, begin.y, color);
+		color = color_gradient(color);
 		begin.y += step.y;
 		begin.x += step.x;
 	}

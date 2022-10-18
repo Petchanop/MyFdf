@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:49:00 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/15 23:53:27 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/17 00:13:40 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	ft_findhexvalue(char code)
 unsigned int	ft_hextoi(char *code)
 {
 	unsigned int	num;
+	unsigned int	val;
 	int				i;
 	int				j;
 
@@ -60,7 +61,8 @@ unsigned int	ft_hextoi(char *code)
 	{
 		if (code[i] == '\n')
 			break ;
-		num += ft_findhexvalue(code[i]) * ft_time(16, j);
+		val = ft_findhexvalue(code[i]);
+		num += val * ft_time(16, j);
 		i++;
 		j--;
 	}

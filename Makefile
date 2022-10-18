@@ -6,7 +6,7 @@
 #    By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/08 17:31:19 by npiya-is          #+#    #+#              #
-#    Updated: 2022/10/15 23:50:41 by npiya-is         ###   ########.fr        #
+#    Updated: 2022/10/18 17:17:55 by npiya-is         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ BUILD_DIR = build
 
 OBJS=$(SRCS:%.c=$(BUILD_DIR)/%.o)
 
-CC= gcc -g -Wall -Wextra -Werror
+CC= gcc  -g -Wall -Wextra -Werror
 
 NAME= fdfpet
 
@@ -42,21 +42,11 @@ $(NAME):
 
 clean:
 	rm -rf mlx/*.o
-	rm -rf include/getnextline/*.0
-	rm -rf include/ft_printf/srcs/*.0
+	rm -rf include/getnextline/*.o
+	rm -rf include/ft_printf/srcs/*.o
 	rm -rf *.o
 
 fclean:clean
 	rm -rf $(NAME)
 
-fclean2:clean
-	rm -rf $(NAME2)
-
-fclean3:clean
-	rm -rf $(NAME3)
-
 re: fclean all
-
-re2: fclean2 test 
-
-re3: fclean3 test2 

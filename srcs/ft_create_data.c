@@ -6,17 +6,31 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 18:50:12 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/14 22:00:27 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:05:31 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	check_width(int width_line, int width, char *buff, int fd)
+{
+	if (!width_line)
+		return ;
+	if (width != width_line)
+	{
+		write(2, "Wrong line length\n", 18);
+		free(buff);
+		close(fd);
+		exit(0);
+	}
+}
 
 void	get_data(char *argv, t_data *img)
 {
 	char	*buff;
 	int		height;
 	int		width;
+	int		width_line;
 	int		fd;
 
 	fd = open(argv, O_RDONLY);
@@ -27,6 +41,8 @@ void	get_data(char *argv, t_data *img)
 	{
 		free(buff);
 		buff = get_next_line(fd);
+		width_line = get_width(buff);
+		check_width(width_line, width, buff, fd);
 		height++;
 	}
 	build_image(img, width, height);
@@ -58,6 +74,8 @@ int	get_width(char *data)
 
 	i = 0;
 	width = 0;
+	if (!data)
+		return (0);
 	while (data[i] != '\n' && data[i])
 	{
 		while (data[i] == ' ' && data[i])
@@ -87,14 +105,13 @@ t_map	**ft_create_data(t_data *img, int fd)
 	{
 		buff = get_next_line(fd);
 		line_split_space = ft_split(buff, ' ');
-		new_data[i] = malloc((img->width + 1) * sizeof(t_data));
+		new_data[i] = malloc((img->width) * sizeof(t_data));
 		j = 0;
 		while (line_split_space[j])
 		{
 			assign_data(line_split_space[j], j, i, &new_data[i][j]);
 			j++;
 		}
-		free(buff);
 		free(line_split_space);
 		i++;
 	}

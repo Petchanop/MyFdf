@@ -6,13 +6,22 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:24:04 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/16 00:02:33 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:14:02 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+void	check_fd(int fd)
+{
+	if (fd < 0)
+	{
+		write(2, "File not found\n", 15);
+		exit(1);
+	}
+}
 
 void	print_data(t_vars vars)
 {
@@ -64,7 +73,13 @@ int	main(int argc, char **argv)
 	vars.mlx_win = mlx_new_window(vars.mlx, 1920, 1080, "npiya-is");
 	if (argc == 2)
 		get_data(argv[1], &vars.img);
+	else
+	{
+		ft_printf("Usage : ./fdf <filename> [ case_size z_size ]\n");
+		exit(0);
+	}
 	fd = open(argv[1], O_RDONLY);
+	check_fd(fd);
 	vars.data = ft_create_data(&vars.img, fd);
 	close(fd);
 	init_t_data(&vars);

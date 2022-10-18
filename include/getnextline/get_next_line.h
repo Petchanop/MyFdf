@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:41:13 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/08/08 22:45:19 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:59:43 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <limits.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
+#  define BUFFER_SIZE 512
 # endif
 
 # ifndef OPEN_MAX

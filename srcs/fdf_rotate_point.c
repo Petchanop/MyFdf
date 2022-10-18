@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_calculate_point.c                              :+:      :+:    :+:   */
+/*   fdf_rotate_point.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:23:19 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/15 22:42:05 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/16 21:07:50 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_point	point_transformation(t_point pnt, t_vars vars)
 	t_point	pre;
 
 	pre = pnt;
-	pre.z *= 0.5;
+	pre.z *= 0.4;
 	pnt = rotatez(pre, vars);
 	pnt = rotatex(pnt, vars);
 	pnt = rotatey(pnt, vars);

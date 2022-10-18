@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:38:27 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/15 23:51:48 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:04:54 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 # include <math.h>
 # include <fcntl.h>
+# include <time.h>
 # include "../mlx/mlx.h"
 # include "../include/ft_printf/srcs/ft_printf.h"
 # include "../include/getnextline/get_next_line.h"
@@ -84,6 +85,7 @@ void			project3d(t_point start, t_point end, t_map data, t_data img);
 void			ft_clear_allocate_data(t_vars vars);
 void			ft_free_split(char **split);
 void			get_data(char *argv, t_data *img);
+void			check_width(int width_line, int width, char *buff, int fd);
 int				get_height(char *line);
 int				get_width(char *line);
 int				valid_point(t_point point);

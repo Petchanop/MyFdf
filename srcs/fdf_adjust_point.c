@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:49:37 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/15 23:31:48 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:20:18 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ t_point	offset_point(t_point pnt, t_vars vars)
 	return (offset);
 }
 
-t_point	assign_point(t_vars vars, int i, int j)
+t_point	assign_point(t_vars vars, t_map data)
 {
 	t_point	pnt;
 
-	pnt = vars.data[i][j].node;
+	pnt = data.node;
 	pnt = offset_point(pnt, vars);
 	pnt = point_transformation(pnt, vars);
 	pnt = adjust_with_center(pnt, vars);

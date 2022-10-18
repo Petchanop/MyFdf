@@ -6,7 +6,7 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:38:27 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/18 17:04:54 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:18:07 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			init_t_data(t_vars *vars);
 void			re_project3d(t_vars *vars);
 void			build_image(t_data *img, int width, int length);
 void			write_line(t_vars vars);
-void			project3d(t_point start, t_point end, t_map data, t_data img);
+void			project3d(t_map data, t_map data1, t_vars vars);
 void			ft_clear_allocate_data(t_vars vars);
 void			ft_free_split(char **split);
 void			get_data(char *argv, t_data *img);
@@ -91,9 +91,11 @@ int				get_width(char *line);
 int				valid_point(t_point point);
 int				check_point(t_point begin, t_point end, t_point step);
 int				ft_findhexvalue(char code);
+int				assign_color(t_map data, t_map data1);
+int				color_gradient(int color, t_map data, t_map data1);
 int				key_hook(int keycode, t_vars *vars);
 int				mouse_hook(int keycode, int x, int y, t_vars *vars);
-t_point			assign_point(t_vars vars, int i, int j);
+t_point			assign_point(t_vars vars, t_map data);
 t_point			adjust_with_center(t_point pnt, t_vars vars);
 t_point			find_center(t_vars vars);
 t_point			find_proportion(t_data img);

@@ -6,7 +6,7 @@
 #    By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/08 17:31:19 by npiya-is          #+#    #+#              #
-#    Updated: 2022/10/18 19:10:58 by npiya-is         ###   ########.fr        #
+#    Updated: 2022/10/18 20:15:08 by npiya-is         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ SRCS= $(SRCS_DIR)fdf.c\
 	$(SRCS_DIR)fdf_write_line.c\
 	$(SRCS_DIR)fdf_rotate_point.c \
 	$(SRCS_DIR)fdf_checkpoint.c \
-	$(SRCS_DIR)ft_format_input.c\
-	$(SRCS_DIR)ft_create_data.c\
+	$(SRCS_DIR)ft_format_input.c \
+	$(SRCS_DIR)ft_create_data.c \
+	$(SRCS_DIR)fdf_assign_color.c \
 
 SRCS_INCLUDE= include/getnextline/get_next_line.c\
 	include/getnextline/get_next_line_utils.c\
@@ -28,6 +29,7 @@ SRCS_INCLUDE= include/getnextline/get_next_line.c\
 BUILD_DIR = build
 
 OBJS=$(SRCS:%.c=$(BUILD_DIR)/%.o)
+OBJS_INC=$(SRC_INCLUDE:%.c=$(BUILD_DIR)/%.o)
 
 CC= gcc  -g -Wall -Wextra -Werror
 

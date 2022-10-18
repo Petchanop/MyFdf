@@ -6,13 +6,21 @@
 /*   By: npiya-is <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:24:04 by npiya-is          #+#    #+#             */
-/*   Updated: 2022/10/18 17:14:02 by npiya-is         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:19:22 by npiya-is         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+int	close_fdf(t_vars *vars)
+{
+	ft_clear_allocate_data(*vars);
+	mlx_destroy_window(vars->mlx, vars->mlx_win);
+	exit(0);
+	return (0);
+}
 
 void	check_fd(int fd)
 {
@@ -89,6 +97,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(vars.mlx_win, key_hook, &vars);
 	mlx_mouse_hook(vars.mlx_win, mouse_hook, &vars);
 	mlx_put_image_to_window(vars.mlx, vars.mlx_win, vars.img.img, 0, 0);
-	mlx_hook(vars.mlx_win, ON_DESTROY, 1L << 0, close, &vars);
+	mlx_hook(vars.mlx_win, ON_DESTROY, 1L << 0, close_fdf, &vars);
 	mlx_loop(vars.mlx);
 }
